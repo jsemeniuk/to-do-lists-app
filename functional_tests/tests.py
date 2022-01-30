@@ -57,8 +57,8 @@ class NewVisitorTest(LiveServerTestCase):
         edith_list_url = self.browser.current_url
         self.assertRegex(edith_list_url, '/lists/.+')
 
-        elf.browser.quit()
-        self.browser = webdriver.Firefox()
+        self.browser.quit()
+        self.browser = webdriver.Chrome()
 
         self.browser.get(self.live_server_url)
         page_text = self.browser.find_element_by_tag_name('body').text
