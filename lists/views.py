@@ -7,6 +7,9 @@ def home_page(request):
 
 def view_list(request, list_id):
     list_to_view = List.objects.get(id=list_id)
+    if request.method == 'POST':
+        Item.objects.create(text=request.POST['item_text'], list=list_to_view)
+        return redirect(f'/lists/{list_to_view.id}/')
     return render(request, 'list.html', {'list': list_to_view})
 
 def new_list(request):
@@ -21,7 +24,3 @@ def new_list(request):
         return render(request, 'home.html', {"error": error})
     return redirect(f'/lists/{list_new.id}/')
 
-def add_item(request, list_id):
-    list_to_modify = List.objects.get(id=list_id)
-    Item.objects.create(text=request.POST['item_text'], list=list_to_modify)
-    return redirect(f'/lists/{list_to_modify.id}/')
